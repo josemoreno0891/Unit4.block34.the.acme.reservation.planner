@@ -1,4 +1,4 @@
-const { client, createCustomer, createTables, createRestaurant, fetchCustomers, fetchRestaurants, createReservation, destroyReservation } = require('./db');
+const { client, createCustomer, createTables, createRestaurant, fetchCustomers, fetchRestaurants, createReservation, destroyReservation, fetchReservation } = require('./db');
 const pg = require('pg');
 const express = require('express');
 const app = express();
@@ -79,10 +79,10 @@ const init = async() => {
         createReservation({ customer_id: lucy.id, restaurant_id: rome.id, reservation_date: '10/31/2024'}),
       ]);
 
-    const vacations = await fetchVacations();
-    console.log(fetchVacations);
-    await destroyVacation(vacations[0].id);
-    console.log(await fetchVacations());
+    const reservation = await fetchReservation();
+    console.log(reservation);
+    await destroyReservation(reservation[0].id);
+    console.log(await fetchReservation());
 
     const port = process.env.PORT || 3000;
     app.listen(port, ()=> console.log(`listening on port ${port}`));
